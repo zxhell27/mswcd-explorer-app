@@ -12,13 +12,13 @@ jobs:
     runs-on: ubuntu-latest # Gunakan server Ubuntu terbaru
 
     steps:
-      # Langkah 1: Ambil kode dari repositori Anda
+      # Langkah 1: Ambil kode dari repositori Anda (diperbarui ke v4)
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      # Langkah 2: Siapkan cache untuk mempercepat build berikutnya
+      # Langkah 2: Siapkan cache untuk mempercepat build berikutnya (diperbarui ke v4)
       - name: Cache Buildozer global directory
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.buildozer
           key: buildozer-global-${{ hashFiles('buildozer.spec') }}
@@ -36,22 +36,21 @@ jobs:
           pip install "cython<3.0" buildozer
 
       # Langkah 4: Pastikan file buildozer.spec ada dan benar
-      - name: Check buildozer.spec
+      - name: Check and sed buildozer.spec
         run: |
           if [ ! -f "buildozer.spec" ]; then
             echo "buildozer.spec not found! Please create and commit it."
             exit 1
           fi
-          # Ubah baris requirements secara otomatis
-          sed -i 's/requirements =.*/requirements = python3,kivy,kivymd,plyer,kivy_garden.mapview/' buildozer.spec
+          sed -i 's/^requirements =.*/requirements = python3,kivy,kivymd,plyer,kivy_garden.mapview/' buildozer.spec
 
       # Langkah 5: Jalankan Buildozer!
       - name: Build with Buildozer
         run: buildozer -v android debug
 
-      # Langkah 6: Unggah file APK sebagai "artifact"
+      # Langkah 6: Unggah file APK sebagai "artifact" (diperbarui ke v4)
       - name: Upload APK
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: MSWCD-Explorer-APK
           path: bin/*.apk
