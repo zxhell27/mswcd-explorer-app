@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-android:
-    # PERBAIKAN 1: Gunakan OS server yang stabil (Ubuntu 22.04)
+    # Gunakan OS server yang stabil (Ubuntu 22.04)
     runs-on: ubuntu-22.04
 
     steps:
@@ -28,7 +28,8 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          # PERBAIKAN 2: Instal versi default dari build tools yang tersedia di Ubuntu 22.04
+          # PERBAIKAN: Tambahkan libunwind-dev ke daftar instalasi
+          sudo apt-get install -y libunwind-dev
           sudo apt-get install -y autoconf automake libtool
           sudo apt-get install -y python3-pip build-essential git python3-dev
           sudo apt-get install -y libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
