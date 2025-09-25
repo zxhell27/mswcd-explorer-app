@@ -1,0 +1,36 @@
+# dashboard.kv (Final)
+
+<DashboardScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        
+        MDTopAppBar:
+            title: "MSWCD Explorer"
+            left_action_items: [["menu", lambda x: print("Menu pressed")]]
+            elevation: 4
+
+        MDGridLayout:
+            cols: 2
+            padding: "16dp"
+            spacing: "16dp"
+            
+            MDRaisedButton:
+                text: "Navigasi Darat"
+                on_release: app.root.current = 'navigasi_darat'
+                size_hint_y: None
+                height: "100dp"
+            MDRaisedButton:
+                text: "Speleologi"
+                on_release: app.root.current = 'caving'
+                size_hint_y: None
+                height: "100dp"
+            MDRaisedButton:
+                text: "Manajemen Ekspedisi"
+                on_release: app.root.current = 'manajemen'
+                size_hint_y: None
+                height: "100dp"
+            MDRaisedButton:
+                text: "Survival & Darurat"
+                on_release: app.root.current = 'survival'
+                size_hint_y: None
+                height: "100dp"

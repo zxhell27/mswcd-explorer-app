@@ -1,0 +1,40 @@
+# survival.kv (Final)
+
+<SurvivalScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        
+        MDTopAppBar:
+            title: "Survival & Darurat"
+            left_action_items: [["arrow-left", lambda x: setattr(app.root, 'current', 'dashboard')]]
+        
+        MDScrollView:
+            MDBoxLayout:
+                orientation: 'vertical'
+                padding: "16dp"
+                spacing: "16dp"
+                adaptive_height: True
+                
+                MDRaisedButton:
+                    text: "Kirim Sinyal SOS"
+                    md_bg_color: "red"
+                
+                MDSeparator:
+
+                MDLabel:
+                    text: "Pustaka Pengetahuan (Offline):"
+                    font_style: "H6"
+                    adaptive_height: True
+                    
+                OneLineIconListItem:
+                    text: "Panduan Pertolongan Pertama (P3K)"
+                    IconLeftWidget:
+                        icon: "medical-bag"
+                OneLineIconListItem:
+                    text: "Identifikasi Flora & Fauna"
+                    IconLeftWidget:
+                        icon: "leaf"
+                OneLineIconListItem:
+                    text: "Teknik Simpul Tali"
+                    IconLeftWidget:
+                        icon: "creation"

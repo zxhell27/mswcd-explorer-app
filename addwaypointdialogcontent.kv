@@ -1,0 +1,23 @@
+# addwaypointdialogcontent.kv (Final)
+
+<AddWaypointDialogContent>:
+    lat: 0
+    lon: 0
+    orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "200dp"
+
+    MDLabel:
+        id: lat_lon_label
+        text: f"Lat: {root.lat:.5f}, Lon: {root.lon:.5f}"
+        halign: "center"
+    
+    MDTextField:
+        id: waypoint_name
+        hint_text: "Nama Waypoint"
+        required: True
+
+    MDTextField:
+        id: waypoint_desc
+        hint_text: "Deskripsi (opsional)"

@@ -1,0 +1,102 @@
+# caving.kv (Final dan Diperbaiki)
+
+<CavingScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        
+        MDTopAppBar:
+            title: "Modul Speleologi"
+            left_action_items: [["arrow-left", lambda x: setattr(app.root, 'current', 'dashboard')]]
+
+        MDScrollView:
+            size_hint_y: 0.5
+            bar_width: "10dp"
+            MDBoxLayout:
+                orientation: 'vertical'
+                adaptive_height: True
+                padding: "16dp"
+                spacing: "8dp"
+
+                MDBoxLayout:
+                    adaptive_height: True
+                    spacing: "16dp"
+                    MDRaisedButton:
+                        text: "Simpan Proyek"
+                        icon: "content-save"
+                        on_release: root.save_survey_data()
+                    MDRaisedButton:
+                        text: "Lanjutkan Proyek"
+                        icon: "play-circle-outline"
+                        on_release: root.load_survey_data()
+
+                MDSeparator:
+                    height: "10dp"
+
+                MDTextField:
+                    id: station_from
+                    hint_text: "Stasiun Dari"
+                MDTextField:
+                    id: station_to
+                    hint_text: "Stasiun Ke"
+                MDTextField:
+                    id: distance
+                    hint_text: "Jarak (meter)"
+                    input_filter: "float"
+                MDTextField:
+                    id: azimuth
+                    hint_text: "Azimuth (°)"
+                    input_filter: "float"
+                MDTextField:
+                    id: clino
+                    hint_text: "Klinometer (°)"
+                    input_filter: "float"
+                MDTextField:
+                    id: lrud_left
+                    hint_text: "Lebar Kiri (m)"
+                    input_filter: "float"
+                MDTextField:
+                    id: lrud_right
+                    hint_text: "Lebar Kanan (m)"
+                    input_filter: "float"
+                MDTextField:
+                    id: lrud_up
+                    hint_text: "Tinggi Atas (m)"
+                    input_filter: "float"
+                MDTextField:
+                    id: lrud_down
+                    hint_text: "Tinggi Bawah (m)"
+                    input_filter: "float"
+                
+                MDRaisedButton:
+                    text: "Tambah Data Stasiun"
+                    on_release: root.add_station_data()
+                    pos_hint: {'center_x': 0.5}
+        
+        MDSeparator:
+
+        MDLabel:
+            text: "Denah Goa (Tampak Atas)"
+            halign: 'center'
+            adaptive_height: True
+            padding_y: "4dp"
+
+        MDCard:
+            size_hint_y: None
+            height: "150dp"
+            padding: "8dp"
+            md_bg_color: 0.1, 0.1, 0.1, 1
+            RelativeLayout:
+                id: cave_map_canvas
+        
+        MDSeparator:
+
+        MDLabel:
+            text: "Log Survei:"
+            halign: 'center'
+            adaptive_height: True
+            padding_y: "4dp"
+        
+        MDScrollView:
+            bar_width: "10dp"
+            MDList:
+                id: station_list

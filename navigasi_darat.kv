@@ -1,0 +1,72 @@
+# navigasi_darat.kv (Final)
+
+<NavigasiDaratScreen>:
+    MDFloatLayout:
+        MapView:
+            id: map_view
+            lat: -6.2088
+            lon: 106.8456
+            zoom: 12
+            
+        MDIconButton:
+            icon: 'arrow-left'
+            pos_hint: {'top': 0.98, 'right': 0.98}
+            on_release: app.root.current = 'dashboard'
+            
+        MDBoxLayout:
+            orientation: 'vertical'
+            adaptive_size: True
+            spacing: "8dp"
+            pos_hint: {'top': 0.85, 'right': 0.98}
+            
+            MDFloatingActionButton:
+                icon: 'crosshairs-gps'
+                md_bg_color: app.theme_cls.primary_color
+                on_release: root.center_on_gps()
+            MDFloatingActionButton:
+                id: track_button
+                icon: 'record'
+                md_bg_color: app.theme_cls.primary_color
+                on_release: root.toggle_tracking()
+            MDFloatingActionButton:
+                icon: 'map-marker-plus'
+                md_bg_color: app.theme_cls.primary_color
+                on_release: root.show_add_waypoint_dialog()
+            MDFloatingActionButton:
+                icon: 'format-list-bulleted'
+                md_bg_color: app.theme_cls.primary_color
+                on_release: root.show_waypoints_list()
+                
+        MDBoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: "120dp"
+            pos_hint: {'bottom': 1}
+            md_bg_color: [0, 0, 0, 0.7]
+            padding: "8dp"
+            
+            MDLabel:
+                text: "Status Navigasi"
+                halign: 'center'
+                font_style: 'H6'
+
+            MDGridLayout:
+                cols: 3
+                MDLabel:
+                    id: lat_label
+                    text: "Lat: - "
+                MDLabel:
+                    id: lon_label
+                    text: "Lon: - "
+                MDLabel:
+                    id: alt_label
+                    text: "Alt: - m"
+                MDLabel:
+                    id: utm_label
+                    text: "UTM: - "
+                MDLabel:
+                    id: speed_label
+                    text: "Kec: - km/j"
+                MDLabel:
+                    id: acc_label
+                    text: "Akurasi: - m"
