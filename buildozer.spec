@@ -1,19 +1,19 @@
 [app]
 
-# (str) Title of your application
-title = My Application
+# (WAJIB) Judul aplikasi Anda yang akan muncul di ponsel
+title = MSWCD Explorer
 
-# (str) Package name
-package.name = myapp
+# (WAJIB) Nama paket internal, harus unik, tanpa spasi/strip
+package.name = mswcdexplorer
 
-# (str) Package domain (needed for android/ios packaging)
-package.domain = org.test
+# (WAJIB) Domain paket, untuk membuat ID aplikasi yang unik
+package.domain = org.wicida.explorer
 
-# (str) Source code where the main.py live
+# (WAJIB) Folder tempat file main.py berada
 source.dir = .
 
-# (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas
+# (WAJIB) Ekstensi file yang harus disertakan dalam APK
+source.include_exts = py,png,jpg,kv,json
 
 # (list) List of inclusions using pattern matching
 #source.include_patterns = assets/*,images/*.png
@@ -28,16 +28,15 @@ source.include_exts = py,png,jpg,kv,atlas
 # Do not prefix with './'
 #source.exclude_patterns = license,images/*/*.jpg
 
-# (str) Application versioning (method 1)
-version = 0.1
+# (WAJIB) Versi aplikasi Anda
+version = 1.0
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
 # version.filename = %(source.dir)s/main.py
 
-# (list) Application requirements
-# comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy
+# (SANGAT PENTING) Semua library Python yang aplikasi Anda butuhkan
+requirements = python3,kivy,kivymd,plyer,kivy_garden.mapview
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -93,27 +92,26 @@ fullscreen = 0
 #icon.adaptive_foreground.filename = %(source.dir)s/data/icon_fg.png
 #icon.adaptive_background.filename = %(source.dir)s/data/icon_bg.png
 
-# (list) Permissions
-# (See https://python-for-android.readthedocs.io/en/latest/buildoptions/#build-options-1 for all the supported syntaxes and properties)
-#android.permissions = android.permission.INTERNET, (name=android.permission.WRITE_EXTERNAL_STORAGE;maxSdkVersion=18)
+# (SANGAT PENTING) Izin yang dibutuhkan aplikasi Anda (Internet untuk peta, Lokasi untuk GPS)
+android.permissions = INTERNET, ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION
 
 # (list) features (adds uses-feature -tags to manifest)
 #android.features = android.hardware.usb.host
 
-# (int) Target Android API, should be as high as possible.
-#android.api = 31
+# (PENTING) Target Android API, harus cukup tinggi untuk Google Play
+android.api = 31
 
 # (int) Minimum API your APK / AAB will support.
-#android.minapi = 21
+android.minapi = 21
 
 # (int) Android SDK version to use
 #android.sdk = 20
 
-# (str) Android NDK version to use
-#android.ndk = 23b
+# (PENTING) Versi Android NDK yang stabil untuk digunakan
+android.ndk = 25b
 
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
-#android.ndk_api = 21
+android.ndk_api = 21
 
 # (bool) Use --private data storage (True) or --dir public storage (False)
 #android.private_storage = True
@@ -195,7 +193,7 @@ fullscreen = 0
 # android.add_resources = my_icons/all-inclusive.png:drawable/all_inclusive.png
 # 2) A directory, here  'legal_icons' must contain resources of one kind
 # android.add_resources = legal_icons:drawable
-# 3) A directory, here 'legal_resources' must contain one or more directories, 
+# 3) A directory, here 'legal_resources' must contain one or more directories,
 # each of a resource kind:  drawable, xml, etc...
 # android.add_resources = legal_resources
 #android.add_resources =
@@ -214,14 +212,14 @@ fullscreen = 0
 # android.add_compile_options = "sourceCompatibility = 1.8", "targetCompatibility = 1.8"
 
 # (list) Gradle repositories to add {can be necessary for some android.gradle_dependencies}
-# please enclose in double quotes 
+# please enclose in double quotes
 # e.g. android.gradle_repositories = "maven { url 'https://kotlin.bintray.com/ktor' }"
 #android.add_gradle_repositories =
 
-# (list) packaging options to add 
+# (list) packaging options to add
 # see https://google.github.io/android-gradle-dsl/current/com.android.build.gradle.internal.dsl.PackagingOptions.html
 # can be necessary to solve conflicts in gradle_dependencies
-# please enclose in double quotes 
+# please enclose in double quotes
 # e.g. android.add_packaging_options = "exclude 'META-INF/common.kotlin_module'", "exclude 'META-INF/*.kotlin_module'"
 #android.add_packaging_options =
 
@@ -281,8 +279,7 @@ fullscreen = 0
 # (bool) Copy library instead of making a libpymodules.so
 #android.copy_libs = 1
 
-# (list) The Android archs to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
-# In past, was `android.arch` as we weren't supporting builds for multiple archs at the same time.
+# (PENTING) Arsitektur prosesor yang didukung. arm64-v8a untuk HP modern.
 android.archs = arm64-v8a, armeabi-v7a
 
 # (int) overrides automatic versionCode computation (used in build.gradle)
@@ -413,18 +410,18 @@ warn_on_root = 1
 # (str) Path to build output (i.e. .apk, .aab, .ipa) storage
 # bin_dir = ./bin
 
-#    -----------------------------------------------------------------------------
-#    List as sections
+#     -----------------------------------------------------------------------------
+#     List as sections
 #
-#    You can define all the "list" as [section:key].
-#    Each line will be considered as a option to the list.
-#    Let's take [app] / source.exclude_patterns.
-#    Instead of doing:
+#     You can define all the "list" as [section:key].
+#     Each line will be considered as a option to the list.
+#     Let's take [app] / source.exclude_patterns.
+#     Instead of doing:
 #
 #[app]
 #source.exclude_patterns = license,data/audio/*.wav,data/images/original/*
 #
-#    This can be translated into:
+#     This can be translated into:
 #
 #[app:source.exclude_patterns]
 #license
@@ -433,13 +430,13 @@ warn_on_root = 1
 #
 
 
-#    -----------------------------------------------------------------------------
-#    Profiles
+#     -----------------------------------------------------------------------------
+#     Profiles
 #
-#    You can extend section / key with a profile
-#    For example, you want to deploy a demo version of your application without
-#    HD content. You could first change the title to add "(demo)" in the name
-#    and extend the excluded directories to remove the HD content.
+#     You can extend section / key with a profile
+#     For example, you want to deploy a demo version of your application without
+#     HD content. You could first change the title to add "(demo)" in the name
+#     and extend the excluded directories to remove the HD content.
 #
 #[app@demo]
 #title = My Application (demo)
@@ -447,6 +444,6 @@ warn_on_root = 1
 #[app:source.exclude_patterns@demo]
 #images/hd/*
 #
-#    Then, invoke the command line with the "demo" profile:
+#     Then, invoke the command line with the "demo" profile:
 #
 #buildozer --profile demo android debug
