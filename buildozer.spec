@@ -110,6 +110,7 @@ android.minapi = 21
 # (PENTING) Versi Android NDK yang stabil untuk digunakan
 android.ndk = 25b
 
+android.build_tools = 33.0.0
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
 android.ndk_api = 21
 
