@@ -12,11 +12,11 @@ jobs:
     runs-on: ubuntu-latest # Gunakan server Ubuntu terbaru
 
     steps:
-      # Langkah 1: Ambil kode dari repositori Anda (diperbarui ke v4)
+      # Langkah 1: Ambil kode dari repositori Anda
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Langkah 2: Siapkan cache untuk mempercepat build berikutnya (diperbarui ke v4)
+      # Langkah 2: Siapkan cache untuk mempercepat build berikutnya
       - name: Cache Buildozer global directory
         uses: actions/cache@v4
         with:
@@ -29,6 +29,8 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
+          # PERBAIKAN: Instal versi spesifik dari build tools yang stabil
+          sudo apt-get install -y autoconf=2.69-14 automake=1:1.16.1-4ubuntu6 libtool-bin
           sudo apt-get install -y python3-pip build-essential git
           sudo apt-get install -y libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
           sudo apt-get install -y libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev
@@ -48,7 +50,7 @@ jobs:
       - name: Build with Buildozer
         run: buildozer -v android debug
 
-      # Langkah 6: Unggah file APK sebagai "artifact" (diperbarui ke v4)
+      # Langkah 6: Unggah file APK sebagai "artifact"
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
