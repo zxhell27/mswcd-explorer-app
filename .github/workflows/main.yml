@@ -1,0 +1,57 @@
+# Nama alur kerja (workflow)
+name: Build Kivy APK with Buildozer
+
+# Pemicu: Jalankan workflow ini setiap kali ada 'push' ke branch 'main'
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest # Gunakan server Ubuntu terbaru
+
+    steps:
+      # Langkah 1: Ambil kode dari repositori Anda
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Langkah 2: Siapkan cache untuk mempercepat build berikutnya
+      - name: Cache Buildozer global directory
+        uses: actions/cache@v2
+        with:
+          path: ~/.buildozer
+          key: buildozer-global-${{ hashFiles('buildozer.spec') }}
+          restore-keys: |
+            buildozer-global-
+
+      # Langkah 3: Instal semua dependensi sistem
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pip build-essential git
+          sudo apt-get install -y libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
+          sudo apt-get install -y libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev
+          sudo apt-get install -y libgstreamer1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good
+          pip install "cython<3.0" buildozer
+
+      # Langkah 4: Pastikan file buildozer.spec ada dan benar
+      - name: Check buildozer.spec
+        run: |
+          if [ ! -f "buildozer.spec" ]; then
+            echo "buildozer.spec not found! Please create and commit it."
+            exit 1
+          fi
+          # Ubah baris requirements secara otomatis
+          sed -i 's/requirements =.*/requirements = python3,kivy,kivymd,plyer,kivy_garden.mapview/' buildozer.spec
+
+      # Langkah 5: Jalankan Buildozer!
+      - name: Build with Buildozer
+        run: buildozer -v android debug
+
+      # Langkah 6: Unggah file APK sebagai "artifact"
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: MSWCD-Explorer-APK
+          path: bin/*.apk
